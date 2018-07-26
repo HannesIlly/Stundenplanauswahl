@@ -13,10 +13,10 @@ public class Schedule {
         timetables.add(new Timetable());
     }
 
-    public void printSchedule() {
+    public void printSchedule(int limit) {
         calculateTimetables();
 
-        System.out.println("Anzahl: " + timetables.size());
+        System.out.println("Anzahl: " + timetables.size() + " (Ausgabelimit: " + limit + ")");
         System.out.println("Bestes Ergebnis:        " + ((TreeSet<Timetable>) timetables).first().getWeights());
         System.out.println("Schlechtestes Ergebnis: " + ((TreeSet<Timetable>) timetables).last().getWeights());
         System.out.println();
@@ -24,6 +24,10 @@ public class Schedule {
             System.out.println("Gesamtgewicht: " + t.getWeights());
             t.print();
             System.out.println("\n");
+            limit--;
+            if (limit <= 0) {
+                return;
+            }
         }
     }
 
