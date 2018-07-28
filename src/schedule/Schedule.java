@@ -17,7 +17,16 @@ public class Schedule {
         calculateTimetables();
 
         System.out.println("Anzahl: " + timetables.size() + " (Ausgabelimit: " + limit + ")");
-        System.out.println("Bestes Ergebnis:        " + ((TreeSet<Timetable>) timetables).first().getWeights());
+        int best = ((TreeSet<Timetable>) timetables).first().getWeights();
+        System.out.print("Bestes Ergebnis:        " + best);
+        int count = 0;
+        for (Timetable t : timetables) {
+            if (t.getWeights() < best) {
+                break;
+            }
+            count++;
+        }
+        System.out.println(" (" + count + " mal)");
         System.out.println("Schlechtestes Ergebnis: " + ((TreeSet<Timetable>) timetables).last().getWeights());
         System.out.println();
         for (Timetable t : timetables) {
