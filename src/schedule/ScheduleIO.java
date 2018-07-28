@@ -19,7 +19,7 @@ public class ScheduleIO {
      * @param path the path of the schedule file
      * @return the schedule that was extracted from the file
      */
-    public static Schedule readSchedule(String path) throws IllegalArgumentException, IOException {
+    public static Schedule readSchedule(String path, String separator) throws IllegalArgumentException, IOException {
         File file = new File(path);
         FileReader fileReader = new FileReader(file);
         BufferedReader in = new BufferedReader(fileReader);
@@ -34,10 +34,10 @@ public class ScheduleIO {
             data = line.split(",");
             if ("".equals(line)) {// skip empty line
             } else if ("modul".equalsIgnoreCase(data[0])) {
-                ModuleCommand module = new ModuleCommand(line);
+                ModuleCommand module = new ModuleCommand(line, separator);
                 modules.add(module.getModule());
             } else if ("vorlesung".equalsIgnoreCase(data[0])) {
-                LectureCommand lecture = new LectureCommand(line);
+                LectureCommand lecture = new LectureCommand(line, separator);
                 lectures.add(lecture.getLecture());
             } else {
                 String marking = "  ";

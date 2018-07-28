@@ -10,8 +10,8 @@ public class LectureCommand extends Command {
     private Set<Block> blocks;
     private int weight = 0;
 
-    public LectureCommand(String line) {
-        super(line);
+    public LectureCommand(String line, String separator) {
+        super(line, separator);
 
         if (args.length < 3) {
             String message;

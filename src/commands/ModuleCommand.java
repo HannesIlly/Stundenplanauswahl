@@ -10,8 +10,8 @@ public class ModuleCommand extends Command {
     private int weight = 0;
     private Map<String, Set<Lecture>> lectures;
 
-    public ModuleCommand(String line) {
-        super(line);
+    public ModuleCommand(String line, String separator) {
+        super(line, separator);
 
         if (args.length < 3) {
             String message;

@@ -13,8 +13,9 @@ public class Main {
             } catch(NumberFormatException e) {
                 throw new IllegalArgumentException("The limit of displayed timetables cannot be set to " + args[1]);
             }
+            String separator = args.length > 2 ? args[2] : ",";
 
-            Schedule schedule = ScheduleIO.readSchedule(file);
+            Schedule schedule = ScheduleIO.readSchedule(file, separator);
             schedule.printSchedule(10);
             //TODO add commands for output(schedule, timetable(...))
 
