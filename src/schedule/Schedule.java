@@ -42,28 +42,22 @@ public class Schedule {
 
     private void calculateTimetables() {
         for (Module m : modules) {
-            for (Set<Lecture> lectures : m.getLectures()) {
-                Set<Timetable> newTimetables = new TreeSet<>();
-                for (Lecture l : lectures) {
-                    for (Timetable t : timetables) {
-                        Timetable oldTimetable = new Timetable(t);
-                        if (!oldTimetable.addLecture(l)) {
-                            Timetable newTimetable = new Timetable(t);
-                            newTimetable.addlectureReplace(l);
-                            newTimetable.addWeight(m.getWeight());
-                            newTimetables.add(newTimetable);
-                        }
-                        oldTimetable.addWeight(m.getWeight());
-                        newTimetables.add(oldTimetable);
+            Set<Timetable> newTimetables = new TreeSet<>();
+            for (Set<Lecture> lecturesToAdd : m.getLectureCombinations()) {
+                Set<Timetable> currentTimetables = new TreeSet<>();
+                for (Timetable timetable : timetables) {
+                    if (!timetable.canAddLectures(lecturesToAdd)) {
+                        currentTimetables.add(timetable);
                     }
+                    Timetable newTimetable = new Timetable(timetable);
+                    newTimetable.addLectures(lecturesToAdd);
+                    currentTimetables.add(newTimetable);
                 }
-                timetables = newTimetables;
+                newTimetables.addAll(currentTimetables);
             }
+            this.timetables = newTimetables;
         }
     }
-
-
-
 
 
 

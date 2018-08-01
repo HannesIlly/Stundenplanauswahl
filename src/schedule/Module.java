@@ -3,16 +3,16 @@ package schedule;
 import java.util.*;
 
 public class Module {
-    private Map<String,Set<Lecture>> lectures;
+    private Map<String, Set<Lecture>> lectures;
     private int weight;
     private String name;
 
     public Module(String name, int weight) {
-        this(name, new HashMap<String,Set<Lecture>>(), weight);
+        this(name, new HashMap<String, Set<Lecture>>(), weight);
     }
 
     public Module(String name, Map<String, Set<Lecture>> lectures, int weight) {
-        if(weight < 0) {
+        if (weight < 0) {
             throw new IllegalArgumentException(weight + " in module " + name + " is not an integer number >= 0");
         }
         this.name = name;
@@ -22,10 +22,8 @@ public class Module {
 
     public Module(String name, Lecture lecture) {
         this(name, 0);
-        Set<Lecture> set = new HashSet<>();
-        set.add(lecture);
-        this.lectures.put(lecture.getName(), set);
-
+        this.lectures.put(lecture.getName(), new HashSet<>());
+        addLecture(lecture);
     }
 
     public Collection<Set<Lecture>> getLectures() {
@@ -35,6 +33,7 @@ public class Module {
     public void addLecture(Lecture lecture) {
         if (lectures.containsKey(lecture.getName())) {
             lectures.get(lecture.getName()).add(lecture);
+            lecture.addWeight(weight);
         }
     }
 
@@ -42,19 +41,24 @@ public class Module {
         return this.name;
     }
 
-    public int getWeight() {
-        return this.weight;
+    public Set<Set<Lecture>> getLectureCombinations() {
+        Set<Set<Lecture>> lectureCombinations = new HashSet<>();
+        lectureCombinations.add(new HashSet<>());
+
+        for (Set<Lecture> lectureSet : getLectures()) {
+            Set<Set<Lecture>> newCombinations = new HashSet<>();
+            for (Set<Lecture> currentCombination : lectureCombinations) {
+                for (Lecture lecture : lectureSet) {
+                    Set<Lecture> newCombination = new HashSet<>(currentCombination);
+                    newCombination.add(lecture);
+                    newCombinations.add(newCombination);
+                }
+            }
+            lectureCombinations = newCombinations;
+        }
+        return lectureCombinations;
     }
 
-    public int getSumOfWeights() {
-        int weight = 0;
-        for (Set<Lecture> set : getLectures()) {
-            for (Lecture l : set) {
-                weight += this.weight + l.getWeight();
-            }
-        }
-        return weight;
-    }
 
     @Override
     public boolean equals(Object o) {

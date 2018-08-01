@@ -29,6 +29,10 @@ public class Lecture {
         return this.weight;
     }
 
+    public void addWeight(int weight) {
+        this.weight += weight;
+    }
+
     @Override
     public String toString() {
         return "[" + name + "," + blocks.toString() + "," + weight + "]";

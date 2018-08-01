@@ -3,6 +3,7 @@ package schedule;
 import java.util.*;
 
 public class Timetable implements Comparable<Timetable> {
+    private Set<Set<Lecture>> lectures = new HashSet<>();
     private Lecture[] timetable;
     private int weights = 0;
 
@@ -10,65 +11,82 @@ public class Timetable implements Comparable<Timetable> {
         timetable = new Lecture[30];
     }
 
+    /**
+     * copy-constructor
+     *
+     * @param t the timetable that is copied
+     */
     public Timetable(Timetable t) {
-        //copy-constructor
         this.timetable = t.timetable.clone();
         this.weights = t.weights;
+        this.lectures = new HashSet<>(t.lectures);
     }
 
+
+
     /**
-     * Adds a lecture to the timetable, if all required blocks are free.
+     * checks, if the given set of lectures can be added without replacing any other lecture.
      *
-     * @param l the lecture
-     * @return {@code true} if the lecture was added successfully, {@code false} if any of the required blocks is already used
+     * @param lectures the set of lectures
+     * @return {@code true} if the set can be added without replacing anything
      */
-    public boolean addLecture(Lecture l) {
-        for (Block block : l.getBlocks()) {
-            if (timetable[block.ordinal()] != null) {
-                return false;
+    public boolean canAddLectures(Set<Lecture> lectures) {
+        for (Lecture lecture : lectures) {
+            for (Block block : lecture.getBlocks()) {
+                if (timetable[block.ordinal()] != null) {
+                    return false;
+                }
             }
         }
-        for (Block block : l.getBlocks()) {
-            timetable[block.ordinal()] = l;
-        }
-        weights += l.getWeight();
         return true;
     }
 
     /**
-     * Adds a lecture to the timetable, replacing other lectures if necessary.
+     * adds a set of lectures to the timetable and if necessary other modules are replaced.
      *
-     * @param l the lecture that is added
-     * @return {@code true} if the lecture was added without replacing any other lecture, {@code false} if lectures were replaced <p>
-     * same return value as in {@code boolean addLecture(Lecture l)}
+     * @param lectures the set of lectures that are added
      */
-    public boolean addlectureReplace(Lecture l) {
-        boolean nolecturesReplaced = true;
-        for (Block block : l.getBlocks()) {
-            Lecture removedLecture = timetable[block.ordinal()];
-            if (removedLecture != null) {
-                nolecturesReplaced = false;
-                removeLecture(removedLecture);
+    public void addLectures(Set<Lecture> lectures) {
+        if (this.lectures.add(lectures)) {
+            for (Lecture lecture : lectures) {
+                for (Block block : lecture.getBlocks()) {
+                    Lecture oldLecture = timetable[block.ordinal()];
+                    if (oldLecture != null) {
+                        removeLecture(oldLecture);
+                    }
+                    timetable[block.ordinal()] = lecture; //replace the lecture
+
+                }
+                weights += lecture.getWeight();
             }
-            timetable[block.ordinal()] = l;
-            weights += l.getWeight();
         }
-        return nolecturesReplaced;
     }
 
-    private void removeLecture(Lecture l) {
-        for (Block b : l.getBlocks()) {
-            timetable[b.ordinal()] = null;
+    /**
+     * removes a lecture from the timetable. All other modules of the corresponding lecture set (module) are removed too.
+     *
+     * @param lecture the lecture that will be removed
+     */
+    private void removeLecture(Lecture lecture) {
+        for (Set<Lecture> lectureSet : lectures) {
+            for (Lecture currentLecture : lectureSet) {
+                if (currentLecture.equals(lecture)) {
+                    for (Lecture l : lectureSet) {
+                        for (Block block : l.getBlocks()) {
+                            timetable[block.ordinal()] = null;
+                        }
+                        weights -= l.getWeight();
+
+                    }
+                    lectures.remove(lectureSet);
+                    return;
+                }
+            }
         }
-        weights -= l.getWeight();
     }
 
-    public int getWeights(){
+    public int getWeights() {
         return this.weights;
-    }
-
-    public void addWeight(int moduleWeight) {
-        this.weights += moduleWeight;
     }
 
     public void print() {
@@ -82,7 +100,7 @@ public class Timetable implements Comparable<Timetable> {
                 line += "|";
             }
             System.out.println(line);
-                printEmptyLine(colWidth);
+            printEmptyLine(colWidth);
             if (block == 2) {
                 printSeparatorLine(colWidth);
             }
