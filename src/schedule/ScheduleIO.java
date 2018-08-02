@@ -32,7 +32,7 @@ public class ScheduleIO {
         String[] data = null;
         while (line != null) {
             data = line.split(",");
-            if ("".equals(line)) {// skip empty line
+            if ("".equals(line) || line.startsWith("//")) {// skip empty line or commentary
             } else if ("modul".equalsIgnoreCase(data[0])) {
                 ModuleCommand module = new ModuleCommand(line, separator);
                 modules.add(module.getModule());
@@ -97,4 +97,7 @@ public class ScheduleIO {
             }
         }
     }
+
+
+
 }

@@ -1,21 +1,36 @@
+//Semester 3
 vorlesung,BWL,Mo2,Do2,1
-vorlesung,BWL,Di2,Mo3,2
-vorlesung,ITSM,Mo4
-modul,BWL+ITSM,ITSM,BWL,3
-vorlesung,Betriebssysteme,Mi1,Do3,2
+vorlesung,BWL,Di2,Mo3,1
+vorlesung,ITSM,Mo4,1
+modul,BWL+ITSM,ITSM,BWL,1
+vorlesung,Betriebssysteme,Mi1,Do3,1
 vorlesung,Betriebssysteme,Mi2,Do1,1
+modul,Betriebssysteme,Betriebssysteme,1
 
-vorlesung,ERP-Systeme,Mo2,Mo4
-vorlesung,Big Data,Mo3
-vorlesung,Datenbanken 2,Di1
+//Semester 4
+vorlesung,ERP-Systeme,Mo2
+vorlesung,ERP-Labor,Mo4
+modul,ERP-Systeme,ERP-Labor
 vorlesung,Softwareengin.,Di2
 vorlesung,VS 2,Mi1,Do4,Do5
 vorlesung,VS 2,Mi2,Do4,Do5
+modul,Softwareengin.,VS 2
+vorlesung,Datenbanken 2,Di1
 vorlesung,KN 2,Mi2
 vorlesung,KN 2,Fr3
-vorlesung,Computergrafik,Mi4,Do2
-vorlesung,Rechnerarchit.,Do1
-vorlesung,Comp.Vision,Do3,Fr4,Fr5
+modul,DB und KN,Datenbanken 2,KN 2
+vorlesung,Computergrafik,Do2
+vorlesung,Comp.grafik Lab,Mi4
+modul,Computergrafik,Computergrafik,Comp.grafik Lab
+
+//Wahlfächer (ich weiss nicht genau fuer welche PO bzw. Semester)
+vorlesung,Big Data,Mo3
+vorlesung,Comp.Vision,Do3
+vorlesung,Bildverarb. Lab,Fr4,Fr5
+modul,Comp.Vision,Comp.Vision,Bildverarb. Lab
 vorlesung,CloudComputing,Fr1
 vorlesung,Game Prog.,Fr1
+
+//PO5 (alt): Semester 5, PO6 (unsere) Semester 6
+vorlesung,Rechnerarchit.,Do1
 vorlesung,Autonome Syst.,Fr2
