@@ -1,4 +1,4 @@
-﻿//Semester 3
+//Semester 3
 vorlesung,BWL,Mo2,Do2,1
 vorlesung,BWL,Di2,Mo3,1
 vorlesung,ITSM,Mo4,1
