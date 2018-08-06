@@ -1,4 +1,4 @@
-//Semester 3
+﻿//Semester 3
 vorlesung,BWL,Mo2,Do2,1
 vorlesung,BWL,Di2,Mo3,1
 vorlesung,ITSM,Mo4,1
@@ -14,7 +14,7 @@ modul,ERP-Systeme,ERP-Labor
 vorlesung,Softwareengin.,Di2
 vorlesung,VS 2,Mi1,Do4,Do5
 vorlesung,VS 2,Mi2,Do4,Do5
-modul,Softwareengin.,VS 2
+modul,VS + S,Softwareengin.,VS 2
 vorlesung,Datenbanken 2,Di1
 vorlesung,KN 2,Mi2
 vorlesung,KN 2,Fr3
@@ -32,5 +32,6 @@ vorlesung,CloudComputing,Fr1
 vorlesung,Game Prog.,Fr1
 
 //PO5 (alt): Semester 5, PO6 (unsere) Semester 6
-vorlesung,Rechnerarchit.,Do1
-vorlesung,Autonome Syst.,Fr2
+//vorlesung,Rechnerarchit.,Do1
+//vorlesung,Autonome Syst.,Fr2
+//modul,Rechnerarch.+AS,Rechnerarchit.,Autonome Syst.
