@@ -31,7 +31,7 @@ public class ScheduleIO {
         int lineCount = 1;
         String[] data = null;
         while (line != null) {
-            data = line.split(",");
+            data = line.split(separator);
             if ("".equals(line) || line.startsWith("//")) {// skip empty line or commentary
             } else if ("modul".equalsIgnoreCase(data[0])) {
                 ModuleCommand module = new ModuleCommand(line, separator);
